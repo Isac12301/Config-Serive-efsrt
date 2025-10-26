@@ -33,7 +33,7 @@ spring:
           predicates:
             - Path=/api/auth/**
           filters:
-            - StripPrefix=0
+            - StripPrefix=1
 
         # Usuarios
         - id: usuario-service

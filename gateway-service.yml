@@ -51,13 +51,13 @@ spring:
           filters:
             - StripPrefix=1
 
-        # 🛒 Carrito
-        - id: carrito-service
-          uri: lb://ventas-service
-          predicates:
-            - Path=/api/carrito/**
-          filters:
-            - StripPrefix=1
+#        # 🛒 Carrito
+#        - id: carrito-service
+#          uri: lb://ventas-service
+#          predicates:
+#            - Path=/api/carrito/**
+#          filters:
+#            - StripPrefix=1
 
 eureka:
   client:

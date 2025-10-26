@@ -53,7 +53,7 @@ spring:
 
         # 🛒 Carrito
         - id: carrito-service
-          uri: lb://carrito-service
+          uri: lb://ventas-service
           predicates:
             - Path=/api/carrito/**
           filters:

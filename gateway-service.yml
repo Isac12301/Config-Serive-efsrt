@@ -57,7 +57,7 @@ spring:
           predicates:
             - Path=/api/carrito/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
 eureka:
   client:
     service-url:

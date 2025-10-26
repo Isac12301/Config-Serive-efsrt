@@ -58,7 +58,6 @@ spring:
 #            - Path=/api/carrito/**
 #          filters:
 #            - StripPrefix=1
-
 eureka:
   client:
     service-url:

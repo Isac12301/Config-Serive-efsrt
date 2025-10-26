@@ -49,7 +49,7 @@ spring:
           predicates:
             - Path=/api/ventas/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
 
         # 🛒 Carrito
         - id: carrito-service

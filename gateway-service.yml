@@ -11,56 +11,51 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        # Productos
         - id: productos-service
           uri: lb://productos-service
           predicates:
             - Path=/api/productos/**
           filters:
             - StripPrefix=1
-
-        # Categorías
         - id: categorias-service
           uri: lb://productos-service
           predicates:
             - Path=/api/categorias/**
           filters:
             - StripPrefix=1
-
-        # Identity
         - id: identity-service
           uri: lb://identity-service
           predicates:
             - Path=/api/auth/**
           filters:
             - StripPrefix=1
-
-        # Usuarios
         - id: usuario-service
           uri: lb://usuario-service
           predicates:
             - Path=/api/usuarios/**
           filters:
             - StripPrefix=1
-
-        # Ventas
         - id: ventas-service
           uri: lb://ventas-service
           predicates:
             - Path=/api/ventas/**
           filters:
-            - StripPrefix=0
-
-        # 🛒 Carrito
+            - StripPrefix=1
         - id: carrito-service
           uri: lb://ventas-service
           predicates:
             - Path=/api/carrito/**
           filters:
-            - StripPrefix=0
+            - StripPrefix=1
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

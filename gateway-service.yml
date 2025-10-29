@@ -4,15 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://eureka-server:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
-
-spring:
   cloud:
     gateway:
       discovery:
@@ -56,6 +47,12 @@ spring:
             - Path=/api/carrito/**
           filters:
             - StripPrefix=1
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 
 management:
   endpoints:

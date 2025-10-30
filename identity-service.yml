@@ -15,23 +15,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}
-
-frontend:
-  redirect-url: ${FRONTEND_REDIRECT_URL}
-
-# ¡NUEVO! Configuración de cliente OAuth2
-spring:
+        
   security:
     oauth2:
       client:
@@ -51,3 +35,16 @@ spring:
             user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
             jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
             user-name-attribute: email
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+frontend:
+  redirect-url: ${FRONTEND_REDIRECT_URL}

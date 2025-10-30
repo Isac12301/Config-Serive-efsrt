@@ -17,6 +17,7 @@ spring:
             - Path=/api/productos/**
           filters:
             - StripPrefix=1
+            
         - id: categorias-service
           uri: lb://productos-service
           predicates:

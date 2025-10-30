@@ -18,7 +18,7 @@ spring:
 
 productos:
   service:
-    url: http://localhost:8080/api/productos
+    url: http://localhost:8100/productos
 
 eureka:
   client:

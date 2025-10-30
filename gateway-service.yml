@@ -17,6 +17,7 @@ spring:
             - Path=/api/productos/**
           filters:
             - StripPrefix=1
+            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
             
         - id: categorias-service
           uri: lb://productos-service
@@ -24,29 +25,29 @@ spring:
             - Path=/api/categorias/**
           filters:
             - StripPrefix=1
+            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
 
-        # --- ¡CORREGIDO! (Ruta 1 para API de Identity) ---
+        # --- Ruta 1 para API de Identity (Pública) ---
         - id: identity-service-api
           uri: lb://identity-service
           predicates:
             - Path=/api/auth/**
           filters:
-            - StripPrefix=1 # Esto quita /api y lo manda como /auth/** al servicio
+            - StripPrefix=1
             
-        # --- ¡NUEVO! (Ruta 2 para el flujo OAuth2) ---
+        # --- Ruta 2 para el flujo OAuth2 (Pública) ---
         - id: identity-service-oauth
           uri: lb://identity-service
           predicates:
             - Path=/oauth2/**, /login/oauth2/code/**
-          # Sin filtros, se pasa la ruta tal cual (ej: /oauth2/authorization/google)
 
-        # --- ¡CORREGIDO! (El path ahora es /api/perfiles-usuario) ---
+        # --- Ruta de Perfiles de Usuario (Segura) ---
         - id: usuario-service
           uri: lb://usuario-service
           predicates:
-            - Path=/api/perfiles-usuario/** 
-          filters:
-            - StripPrefix=1 
+            - Path=/api/perfiles-usuario/** filters:
+            - StripPrefix=1
+            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
             
         - id: ventas-service
           uri: lb://ventas-service
@@ -72,11 +73,13 @@ eureka:
     fetch-registry: true
 jwt:
   secret: ${JWT_SECRET}
+
+# Configuración de Actuator para Prometheus
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*" # Exponer todos los endpoints (incluye prometheus)
   endpoint:
     health:
       show-details: always

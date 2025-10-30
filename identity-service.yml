@@ -26,3 +26,28 @@ eureka:
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
+
+frontend:
+  redirect-url: ${FRONTEND_REDIRECT_URL}
+
+# ¡NUEVO! Configuración de cliente OAuth2
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID} # <-- Pon esto en tus variables de entorno
+            client-secret: ${GOOGLE_CLIENT_SECRET} # <-- Pon esto en tus variables de entorno
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: http://localhost:9000/login/oauth2/code/google # Ajusta el puerto si es necesario
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+            user-name-attribute: email

@@ -53,3 +53,16 @@ jwt:
 
 frontend:
   redirect-url: ${FRONTEND_REDIRECT_URL}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

@@ -28,3 +28,16 @@ eureka:
     serviceUrl:
       # Dirección donde está corriendo tu servidor Eureka.
       defaultZone: http://eureka-server:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

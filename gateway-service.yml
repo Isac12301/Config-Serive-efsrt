@@ -77,10 +77,18 @@ spring:
             - StripPrefix=1
             - JwtAuthentication 
 
-        - id: notificaciones-ws
-          uri: lb://notificaciones-service 
+        - id: notificaciones-ws-sockjs
+          uri: lb://notificaciones-service
           predicates:
             - Path=/api/notificaciones-ws/**
+          filters:
+            - StripPrefix=1
+            
+        - id: notificaciones-ws-websocket
+          uri: ws://notificaciones-service:9002
+          predicates:
+            - Path=/api/notificaciones-ws/**
+            - Header=Upgrade, websocket
           filters:
             - StripPrefix=1
 

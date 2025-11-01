@@ -80,12 +80,20 @@ spring:
             - StripPrefix=1
             - JwtAuthentication 
 
-        - id: notificaciones-ws
-          uri: lb://notificaciones-service 
+        - id: notificaciones-ws-ws
+          uri: ws://notificaciones-service:9002
           predicates:
             - Path=/api/notificaciones-ws/**
+            - Header=Upgrade, WebSocket  
           filters:
-            - StripPrefix=1  
+            - StripPrefix=1
+
+        - id: notificaciones-ws-http
+          uri: lb://notificaciones-service
+          predicates:
+            - Path=/api/notificaciones-ws/**  
+          filters:
+            - StripPrefix=1
 eureka:
   client:
     service-url:

@@ -65,8 +65,9 @@ spring:
           filters:
             - StripPrefix=1
             - JwtAuthentication 
+
         - id: notificaciones-ws
-          uri: lb:ws://notificaciones-service 
+          uri: lb://notificaciones-service 
           predicates:
             - Path=/api/notificaciones-ws/**
           filters:

@@ -12,7 +12,7 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
-
+    
           globalcors:
             cors-configurations:
               '[/**]':
@@ -26,65 +26,65 @@ spring:
                 allowed-headers: "*"
                 allow-credentials: true
 
-      routes:
-        - id: productos-service
-          uri: lb://productos-service
-          predicates:
-            - Path=/api/productos/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthentication
-            
-        - id: categorias-service
-          uri: lb://productos-service
-          predicates:
-            - Path=/api/categorias/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthentication
-
-        - id: identity-service-api
-          uri: lb://identity-service
-          predicates:
-            - Path=/api/auth/**
-          filters:
-            - StripPrefix=1
-            
-        - id: identity-service-oauth
-          uri: lb://identity-service
-          predicates:
-            - Path=/oauth2/**, /login/oauth2/code/**
-
-        - id: usuario-service
-          uri: lb://usuario-service
-          predicates:
-            - Path=/api/perfiles-usuario/** 
-          filters:
-            - StripPrefix=1
-            - JwtAuthentication
-            
-        - id: ventas-service
-          uri: lb://ventas-service
-          predicates:
-            - Path=/api/ventas/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthentication 
-            
-        - id: carrito-service
-          uri: lb://ventas-service
-          predicates:
-            - Path=/api/carrito/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthentication 
-
-        - id: notificaciones-ws
-          uri: lb://notificaciones-service 
-          predicates:
-            - Path=/api/notificaciones-ws/**
-          filters:
-            - StripPrefix=1
+          routes:
+            - id: productos-service
+              uri: lb://productos-service
+              predicates:
+                - Path=/api/productos/**
+              filters:
+                - StripPrefix=1
+                - JwtAuthentication
+                
+            - id: categorias-service
+              uri: lb://productos-service
+              predicates:
+                - Path=/api/categorias/**
+              filters:
+                - StripPrefix=1
+                - JwtAuthentication
+    
+            - id: identity-service-api
+              uri: lb://identity-service
+              predicates:
+                - Path=/api/auth/**
+              filters:
+                - StripPrefix=1
+                
+            - id: identity-service-oauth
+              uri: lb://identity-service
+              predicates:
+                - Path=/oauth2/**, /login/oauth2/code/**
+    
+            - id: usuario-service
+              uri: lb://usuario-service
+              predicates:
+                - Path=/api/perfiles-usuario/**
+              filters:
+                - StripPrefix=1
+                - JwtAuthentication
+                
+            - id: ventas-service
+              uri: lb://ventas-service
+              predicates:
+                - Path=/api/ventas/**
+              filters:
+                - StripPrefix=1
+                - JwtAuthentication 
+                
+            - id: carrito-service
+              uri: lb://ventas-service
+              predicates:
+                - Path=/api/carrito/**
+              filters:
+                - StripPrefix=1
+                - JwtAuthentication 
+    
+            - id: notificaciones-ws
+              uri: lb://notificaciones-service 
+              predicates:
+                - Path=/api/notificaciones-ws/**
+              filters:
+                - StripPrefix=1
 
 eureka:
   client:
@@ -99,7 +99,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" 
+        include: "*" # Exponer todos los endpoints
   endpoint:
     health:
       show-details: always

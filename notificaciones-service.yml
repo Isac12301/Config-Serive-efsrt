@@ -18,7 +18,14 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+    fail-fast: false
+    registry-fetch-interval-seconds: 5
+    lease-renewal-interval-in-seconds: 5
 
+  instance:
+    hostname: notificaciones-service
+    lease-expiration-duration-in-seconds: 10
+    
 management:
   endpoints:
     web:

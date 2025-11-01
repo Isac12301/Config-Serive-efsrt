@@ -1,0 +1,40 @@
+server:
+  port: 9002
+
+  data:
+    mongodb:
+      # Conecta al contenedor 'mongo' en el puerto 27017
+      # y usa la base de datos 'notificacionesdb'
+      uri: mongodb://mongo:27017/notificacionesdb
+
+  # --- Configuración de RabbitMQ ---
+  rabbitmq:
+    host: rabbitmq        # Nombre del servicio en docker-compose
+    port: 5672
+    username: guest       # Usuario por defecto de tu docker-compose
+    password: guest       # Password por defecto de tu docker-compose
+
+# --- Configuración de Eureka Client ---
+eureka:
+  client:
+    service-url:
+      # Conecta al servicio 'eureka-server'
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: notificaciones-service
+
+# --- Configuración de Actuator para Prometheus ---
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Exponer todos los endpoints (incluye prometheus)
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

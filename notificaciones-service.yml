@@ -1,20 +1,20 @@
 server:
   port: 9002
 
+spring:
   data:
     mongodb:
       uri: mongodb://mongo:27017/notificacionesdb
 
   rabbitmq:
-    host: rabbitmq        # Nombre del servicio en docker-compose
+    host: rabbitmq
     port: 5672
-    username: guest       # Usuario por defecto de tu docker-compose
-    password: guest       # Password por defecto de tu docker-compose
+    username: guest
+    password: guest
 
 eureka:
   client:
-    serviceurl:
-      # Conecta al servicio 'eureka-server'
+    serviceUrl:
       defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
@@ -23,7 +23,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" # Exponer todos los endpoints (incluye prometheus)
+        include: "*"
   endpoint:
     health:
       show-details: always

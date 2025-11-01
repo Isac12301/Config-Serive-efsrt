@@ -10,6 +10,20 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*" 
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "OPTIONS"
+            allowed-headers: "*"
+            allow-credentials: true
+
       routes:
         - id: productos-service
           uri: lb://productos-service

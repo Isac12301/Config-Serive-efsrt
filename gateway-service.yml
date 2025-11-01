@@ -11,6 +11,7 @@ spring:
           enabled: true
           lower-case-service-id: true
 
+      # Esta configuración global de CORS es PERFECTA. Déjala como está.
       globalcors:
         cors-configurations:
           '[/**]':
@@ -31,7 +32,7 @@ spring:
             - Path=/api/productos/**
           filters:
             - StripPrefix=1
-            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
+            - JwtAuthentication
             
         - id: categorias-service
           uri: lb://productos-service
@@ -39,9 +40,8 @@ spring:
             - Path=/api/categorias/**
           filters:
             - StripPrefix=1
-            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
+            - JwtAuthentication
 
-        # --- Ruta 1 para API de Identity (Pública) ---
         - id: identity-service-api
           uri: lb://identity-service
           predicates:
@@ -49,20 +49,17 @@ spring:
           filters:
             - StripPrefix=1
             
-        # --- Ruta 2 para el flujo OAuth2 (Pública) ---
         - id: identity-service-oauth
           uri: lb://identity-service
           predicates:
             - Path=/oauth2/**, /login/oauth2/code/**
 
-        # --- Ruta de Perfiles de Usuario (Segura) ---
         - id: usuario-service
           uri: lb://usuario-service
           predicates:
-            - Path=/api/perfiles-usuario/** 
-          filters:
+            - Path=/api/perfiles-usuario/** filters:
             - StripPrefix=1
-            - JwtAuthentication  # <--- ¡FILTRO AÑADIDO!
+            - JwtAuthentication
             
         - id: ventas-service
           uri: lb://ventas-service
@@ -80,20 +77,13 @@ spring:
             - StripPrefix=1
             - JwtAuthentication 
 
-        - id: notificaciones-ws-ws
-          uri: ws://notificaciones-service:9002
+        - id: notificaciones-ws
+          uri: lb://notificaciones-service 
           predicates:
             - Path=/api/notificaciones-ws/**
-            - Header=Upgrade, WebSocket  
           filters:
             - StripPrefix=1
 
-        - id: notificaciones-ws-http
-          uri: lb://notificaciones-service
-          predicates:
-            - Path=/api/notificaciones-ws/**  
-          filters:
-            - StripPrefix=1
 eureka:
   client:
     service-url:
@@ -103,12 +93,11 @@ eureka:
 jwt:
   secret: ${JWT_SECRET}
 
-# Configuración de Actuator para Prometheus
 management:
   endpoints:
     web:
       exposure:
-        include: "*" # Exponer todos los endpoints (incluye prometheus)
+        include: "*"
   endpoint:
     health:
       show-details: always

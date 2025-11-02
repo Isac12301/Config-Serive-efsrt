@@ -19,7 +19,7 @@ spring:
                 allowedOrigins:
                   - "http://localhost:3000"
                   - "http://127.0.0.1:5500"
-                  - "null" 
+                  - "*" 
                 allowedMethods:
                   - GET
                   - POST
@@ -27,7 +27,7 @@ spring:
                   - DELETE
                   - OPTIONS
                 allowedHeaders: "*"
-                allowCredentials: true
+                allowCredentials: false
 
           routes:
             - id: productos-service

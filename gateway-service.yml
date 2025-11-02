@@ -99,7 +99,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" # Exponer todos los endpoints
+        include: "*"
   endpoint:
     health:
       show-details: always

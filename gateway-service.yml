@@ -12,13 +12,14 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
-    
+
           globalcors:
             cors-configurations:
               '[/**]':
                 allowedOrigins:
                   - "http://localhost:3000"
                   - "http://127.0.0.1:5500"
+                  - "null" 
                   - "*" 
                 allowedMethods:
                   - GET
@@ -27,6 +28,7 @@ spring:
                   - DELETE
                   - OPTIONS
                 allowedHeaders: "*"
+                allowCredentials: true
                 allowCredentials: false
 
           routes:
@@ -37,7 +39,7 @@ spring:
               filters:
                 - StripPrefix=1
                 - JwtAuthentication
-                
+
             - id: categorias-service
               uri: lb://productos-service
               predicates:
@@ -45,19 +47,19 @@ spring:
               filters:
                 - StripPrefix=1
                 - JwtAuthentication
-    
+
             - id: identity-service-api
               uri: lb://identity-service
               predicates:
                 - Path=/api/auth/**
               filters:
                 - StripPrefix=1
-                
+
             - id: identity-service-oauth
               uri: lb://identity-service
               predicates:
                 - Path=/oauth2/**, /login/oauth2/code/**
-    
+
             - id: usuario-service
               uri: lb://usuario-service
               predicates:
@@ -65,7 +67,7 @@ spring:
               filters:
                 - StripPrefix=1
                 - JwtAuthentication
-                
+
             - id: ventas-service
               uri: lb://ventas-service
               predicates:
@@ -73,7 +75,7 @@ spring:
               filters:
                 - StripPrefix=1
                 - JwtAuthentication 
-                
+
             - id: carrito-service
               uri: lb://ventas-service
               predicates:
@@ -81,14 +83,14 @@ spring:
               filters:
                 - StripPrefix=1
                 - JwtAuthentication 
-    
+
             - id: notificaciones-ws-sockjs
               uri: lb://notificaciones-service
               predicates:
                 - Path=/api/notificaciones-ws/**
               filters:
                 - StripPrefix=1
-                
+
             - id: notificaciones-ws-websocket
               uri: ws://notificaciones-service:9002
               predicates:
@@ -114,4 +116,3 @@ management:
   endpoint:
     health:
       show-details: always
-

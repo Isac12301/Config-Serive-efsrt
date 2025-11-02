@@ -43,8 +43,8 @@ spring:
               predicates:
                 - Path=/api/categorias/**
               filters:
+                - StripPrefix=1
                 - JwtAuthentication
-
     
             - id: identity-service-api
               uri: lb://identity-service

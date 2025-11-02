@@ -16,15 +16,18 @@ spring:
           globalcors:
             cors-configurations:
               '[/**]':
-                allowed-origin-patterns: "*" 
-                allowed-methods:
-                  - "GET"
-                  - "POST"
-                  - "PUT"
-                  - "DELETE"
-                  - "OPTIONS"
-                allowed-headers: "*"
-                allow-credentials: true
+                allowedOrigins:
+                  - "http://localhost:3000"
+                  - "http://127.0.0.1:5500"
+                  - "null" 
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders: "*"
+                allowCredentials: true
 
           routes:
             - id: productos-service
@@ -79,10 +82,18 @@ spring:
                 - StripPrefix=1
                 - JwtAuthentication 
     
-            - id: notificaciones-ws
-              uri: lb://notificaciones-service 
+            - id: notificaciones-ws-sockjs
+              uri: lb://notificaciones-service
               predicates:
                 - Path=/api/notificaciones-ws/**
+              filters:
+                - StripPrefix=1
+                
+            - id: notificaciones-ws-websocket
+              uri: ws://notificaciones-service:9002
+              predicates:
+                - Path=/api/notificaciones-ws/**
+                - Header=Upgrade, websocket
               filters:
                 - StripPrefix=1
 
